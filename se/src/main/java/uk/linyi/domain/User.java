@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends Person {
+public class User extends Person implements Operator {
     private String username;
     private String password;
     private boolean isLoggedIn;
@@ -26,6 +26,7 @@ public class User extends Person {
         return "USER";
     }
 
+    @Override
     public boolean register(String username, String password, String email) {
         if (username == null || username.trim().isEmpty() ||
             password == null || password.trim().isEmpty() ||
@@ -40,6 +41,7 @@ public class User extends Person {
         return true;
     }
 
+    @Override
     public boolean login(String username, String password) {
         if (this.username != null && this.password != null &&
             this.username.equals(username) && this.password.equals(password)) {
@@ -47,18 +49,5 @@ public class User extends Person {
             return true;
         }
         return false;
-    }
-
-    public void logout() {
-        this.isLoggedIn = false;
-    }
-
-    public boolean isRegistered() {
-        return username != null && !username.trim().isEmpty() &&
-               password != null && !password.trim().isEmpty();
-    }
-
-    public boolean canLogin() {
-        return isRegistered() && !isLoggedIn;
     }
 }
